@@ -1,0 +1,141 @@
+/*!
+* jquery.fixedHeaderTable. The jQuery fixedHeaderTable plugin
+*
+* Copyright (c) 2009 Mark Malek
+* http://fixedheadertable.mmalek.com
+*
+* Licensed under MIT
+* http://www.opensource.org/licenses/mit-license.php
+*
+* Launch  : October 2009
+* Version : beta 0.1
+* Released: TBA
+*/
+
+/***********/
+/* CONTENT */
+/***********/
+
+.fht_fixed_header table thead tr th, .fht_fixed_header table thead tr th a, .fht_table_body table thead tr th, .fht_table_body table thead tr th a, .fht_table_body table tbody tr td, table thead tr th, table thead tr th a, table tbody tr td, table tbody tr td a {
+	font-size:14px;
+	color:#222;
+	font-weight:normal;
+	text-decoration:none;
+	font-family:Helvetica, Arial, "sans-sarif";
+}
+
+.fht_fixed_header table thead tr th, .fht_fixed_header table thead tr th a, .fht_fixed_header table thead tr th a:hover, .fht_table_body table thead tr th, .fht_table_body table thead tr th a, .fht_table_body table thead tr th a:hover, table thead tr th, table thead tr th a {
+	font-size:16px;
+	color:#fff;
+}
+
+.fht_fixed_header table thead tr th a:hover, .fht_table_body table thead tr th a:hover {
+    text-decoration: underline;
+}
+
+.fht_fixed_header table thead tr th, .fht_table_body table thead tr th, table thead tr th {
+	text-align:left;
+}
+
+.fht_table_body table tbody tr td, table tbody tr td {
+	font-family:Helvetica, Arial, "Sans-serif";
+	font-weight:normal;
+	color:#666;
+}
+
+.fht_table_body table tbody tr td, table tbody tr td {
+	font-size:14px;
+	color: #476788 !important;
+}
+
+/***************/
+/* END CONTENT */
+/***************/
+
+
+/**********/
+/* LAYOUT */
+/**********/
+
+.fht_table_body tbody, .fht_table_body thead, table tbody, table thead {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.fht_loader {
+	display:block;
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:#fff url('images/loadingdata.png') no-repeat center center;
+	z-index:1;
+	top:0;
+	left:0;
+	border:1px solid #333;
+}
+
+.fht_fixed_header {
+	width:100%;
+	overflow: hidden;
+	position:relative;
+	background:#476788;
+}
+
+.fht_table_body {
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+	overflow-y:auto;
+	overflow-x:auto;
+	background:#476788;
+}
+
+.fht_table_body th, .fht_table_body td, .fht_fixed_header th, th, td {
+    border-left: 1px solid #bfd0e2;
+    border-right: 1px solid #bfd0e2;
+}
+
+.fht_fixed_header th.first-cell, th.first-cell {
+    border-left-color: #476788;
+}
+
+.fht_fixed_header th.last-cell, th.last-cell {
+    border-right-color: #476788;
+}
+
+.fht_table_body table thead tr th, .fht_table_body table tbody tr td, .fht_fixed_header table thead tr th, table thead tr th, table tbody tr td {
+    padding: 4px 10px;
+    line-height: 18px;
+}
+
+.fht_table_body table thead tr th, .fht_fixed_header table thead tr th, table thead tr th {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.fht_table_body table tbody tr, table tbody tr {
+	background:#dfe9f4;
+}
+
+.fht_table_body table tbody tr.odd, table tbody tr.odd {
+	background:#d5e2f0;
+
+}
+
+.fht_table_body th a, .fht_fixed_header th a, table thead th a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.empty-cell {
+
+    overflow:hidden;
+}
+
+/**************/
+/* END LAYOUT */
+/**************/

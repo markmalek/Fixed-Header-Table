@@ -64,6 +64,7 @@ table.fht-table {
 	}
 
 table.fht-table .fht-cell {
+	overflow: hidden;
     height: 1px;
 	}
 
@@ -75,7 +76,6 @@ table.fht-table thead tr th,
 table.fht-table tfoot tr td,
 .fht-table-head table thead tr th {
 	/* appearance */
-	background: #a7b2d8;
 	
 	/* size */
 	padding: 5px;

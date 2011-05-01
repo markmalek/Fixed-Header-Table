@@ -1,20 +1,11 @@
-
-.myTable th.first {
-	-webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	border-top-left-radius: 5px;
-	}
-	
-.myTable th.last {
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	border-top-right-radius: 5px;
-	}
-
 td, th {
-
+	border: 1px solid #000;
 }
 
-tbody td {
-	background: #eee !important;
+thead th, tfoot td {
+	background: #959595;
+}
+
+tbody tr.odd td {
+	background: #e1e1e1;
 }

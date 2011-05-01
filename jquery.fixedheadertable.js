@@ -1,12 +1,26 @@
-// jQuery Plugin FixedHeaderTable
-// A pluging for adding fixed headers to HTML tables
-// version 1.2, April 30th, 2011
-// by Mark Malek
+/*!
+* jquery.fixedHeaderTable. The jQuery fixedHeaderTable plugin
+*
+* Copyright (c) 2011 Mark Malek
+* http://fixedheadertable.com
+*
+* Licensed under MIT
+* http://www.opensource.org/licenses/mit-license.php
+* 
+* http://docs.jquery.com/Plugins/Authoring
+* jQuery authoring guidelines
+*
+* Launch  : October 2009
+* Version : 1.2
+* Released: May 2nd, 2011
+*
+* 
+* all CSS sizing (width,height) is done in pixels (px)
+*/
 
 (function($) {
 
-    // here it goes!
-    $.fn.fixedHeaderTable = function(method) {
+    $.fn.fixedHeaderTable = function( method ) {
 
         // plugin's default options
         var defaults = {
@@ -14,42 +28,25 @@
             width:	'100%',
             height: '100%',
             borderCollapse: true,
+            themeClass: 'fht-default',
             
-            autoShow:            true,
+            autoShow:            true, // hide table after its created
             loader:              false,
-            footer:              false,
-			cloneHeadToFoot:	 false,
+            footer:              false, // show footer
+			cloneHeadToFoot:	 false, // clone head and use as footer
             cloneHeaderToFooter: false, // deprecated option
-            autoResize:          false,
-            complete:            null
+            autoResize:          false, // resize table if its parent wrapper changes size
+            complete:            null // callback after plugin completes
             
         }
 
-        // this will hold the merged default and user-provided properties
-        // you will have to access the plugin's properties through this object!
-        // settings.propertyName
         var settings = {}
 
         // public methods
-        // to keep the $.fn namespace uncluttered, collect all of the plugin's methods in an object literal and call
-        // them by passing the string name of the method to the plugin
-        //
-        // public methods can be called as
-        // $(selector).pluginName('methodName', arg1, arg2, ... argn)
-        // where "pluginName" is the name of your plugin and "methodName" is the name of a function available in
-        // the "methods" object below; arg1 ... argn are arguments to be passed to the method
-        //
-        // or, from within the plugin itself, as
-        // methods.methodName(arg1, arg2, ... argn)
-        // where "methodName" is the name of a function available in the "methods" object below
         var methods = {
 
-            // this the constructor method that gets called when the object is created
             init : function(options) {
 
-                // the plugin's final properties are the merged default and user-provided properties (if any)
-                // this has the advantage of not polluting the defaults, making the same instace re-usable with
-                // new options; thanks to Steven Black for suggesting this
                 settings = $.extend({}, defaults, options);
 
                 // iterate through all the DOM elements we are attaching the plugin to
@@ -69,7 +66,10 @@
                 });
                 
             },
-
+			
+			/*
+			 * Setup table structure for fixed headers and optional footer
+			 */
             setup: function( options ) {
                 var $self  = $(this),
                     self   = this,
@@ -84,33 +84,35 @@
                     $temp;
                     
                 settings.scrollbarOffset = helpers._getScrollbarWidth();
-				settings.themeClassName = $self.attr('class');
-				
+				settings.themeClassName = settings.themeClass;
+
                 $self.css({
-                    width: settings.width - settings.scrollbarOffset,
-                    height: settings.height
+                    width: settings.width - settings.scrollbarOffset
                 });
-                
+
                 if ( !$self.closest('.fht-table-wrapper').length ) {
                     $self.addClass('fht-table');
                     $self.wrap('<div class="fht-table-wrapper"></div>');
                 }
-                
+
                 $wrapper = $self.closest('.fht-table-wrapper');
                 
                 $wrapper.css({
                     width: settings.width,
                     height: settings.height
                 });
-                
+
                 if ( !$self.hasClass('fht-table-init') ) {
                     
                     $self.wrap('<div class="fht-tbody"></div>');
                         
                 }
-
+				$divBody = $self.closest('.fht-tbody');
+				
                 var tableProps = helpers._getTableProps($self);
                 
+                helpers._setupClone( $divBody, tableProps.tbody );
+
                 if ( !$self.hasClass('fht-table-init') ) {    
                     $divHead = $('<div class="fht-head"><table class="fht-table"></table></div>').prependTo($wrapper);
                     
@@ -127,7 +129,11 @@
                 $self.css({
                     'margin-top': -$thead.outerHeight(true) - tableProps.border
                 });
-                    
+                
+                /*
+                 * Check for footer
+                 * Setup footer if present
+                 */
                 if ( settings.footer ) {
                 	
                 	if ( !$self.hasClass('fht-table-init') ) {
@@ -161,7 +167,6 @@
                 }
                 
                 var tbodyHeight = $wrapper.height() - $thead.outerHeight(true) - $tfoot.outerHeight(true) - tableProps.border;
-                $divBody = $self.closest('.fht-tbody');
                 $divBody.css({
 	                    'height': tbodyHeight
 	                });
@@ -172,9 +177,17 @@
                 
                 $self.addClass('fht-table-init');
                 
+                if ( typeof(settings.altClass) !== 'undefined' ) {
+                	$self.find('tbody tr:odd')
+                		.addClass(settings.altClass);
+                }
+                
                 return self;
             },
             
+            /*
+             * Show a hidden fixedHeaderTable table
+             */
             show: function() {
                 var $self = $(this),
                     self  = this;
@@ -185,6 +198,9 @@
                 return this; 
             },
             
+            /*
+             * Hide a fixedHeaderTable table
+             */
             hide: function() {
                 var $self = $(this),
                     self  = this;
@@ -195,6 +211,9 @@
                 return this;
             },
             
+            /*
+             * Destory fixedHeaderTable and return table to original state
+             */
             destroy: function() {
                 var $self    = $(this),
                     self     = this,
@@ -216,14 +235,12 @@
         }
 
         // private methods
-        // these methods can be called only from within the plugin
-        //
-        // private methods can be called as
-        // helpers.methodName(arg1, arg2, ... argn)
-        // where "methodName" is the name of a function available in the "helpers" object below; arg1 ... argn are
-        // arguments to be passed to the method
         var helpers = {
 
+			/*
+			 * return boolean
+			 * True if a thead and tbody exist.
+			 */
             _isTable: function( $obj ) {
                 var $self = $obj,
                     hasTable = $self.is('table'),
@@ -238,6 +255,11 @@
 
             },
             
+            /*
+             * return object
+             * Widths of each thead cell and tbody cell for the first rows.
+             * Used in fixing widths for the fixed header and optional footer.
+             */
             _getTableProps: function( $obj ) {
                 var tableProp = {
                     thead: {},
@@ -259,27 +281,37 @@
                 return tableProp;
             },
             
-            _setupClone: function( $head, cellArray ) {
-                var $self    = $head,
+            /*
+             * return void
+             * Fix widths of each cell in the first row of obj.
+             */
+            _setupClone: function( $obj, cellArray ) {
+                var $self    = $obj,
                     selector = ( $self.find('thead').length ) ?
                         'thead th' : 
                         ( $self.find('tfoot').length ) ?
                             'tfoot td' :
                             'tbody td',
                     $cell;
-
-                $self.css({
-                	'margin-right': settings.scrollbarOffset
-                });
+				
+				if ( !$self.hasClass('fht-tbody') ) {
+	                $self.css({
+	                	'margin-right': settings.scrollbarOffset
+	                });
+                }
                 $self.find(selector).each(function(index) {
                     $cell = ( $(this).find('div.fht-cell').length ) ? $(this).find('div.fht-cell') : $('<div class="fht-cell"></div>').appendTo($(this));
 
                     $cell.css({
-                        'width': cellArray[index]
+                        'width': parseInt(cellArray[index])
                     });
                 });
             },
             
+            /*
+             * return int
+             * get the width of the browsers scroll bar
+             */
             _getScrollbarWidth: function() {
             	var scrollbarWidth = 0;
             	
@@ -307,13 +339,13 @@
         }
 
         // if a method as the given argument exists
-        if (methods[method]) {
+        if ( methods[method] ) {
 
             // call the respective method
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
         // if an object is given as method OR nothing is given as argument
-        } else if (typeof method === 'object' || !method) {
+        } else if ( typeof method === 'object' || !method ) {
 
             // call the initialization method
             return methods.init.apply(this, arguments);

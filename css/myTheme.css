@@ -1,11 +1,11 @@
-td, th {
+.fancyTable td, .fancyTable th {
 	border: 1px solid #000;
 }
 
-thead th, tfoot td {
+.fancyTable thead th, .fancyTable tfoot td {
 	background: #959595;
 }
 
-tbody tr.odd td {
+.fancyTable tbody tr.odd td {
 	background: #e1e1e1;
 }

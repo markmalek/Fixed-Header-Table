@@ -87,8 +87,9 @@
 				settings.themeClassName = settings.themeClass;
 
                 $self.css({
-                    width: settings.width - settings.scrollbarOffset
-                });
+	                    width: settings.width - settings.scrollbarOffset
+	                })
+	                .addClass(settings.themeClassName);
 
                 if ( !$self.closest('.fht-table-wrapper').length ) {
                     $self.addClass('fht-table');

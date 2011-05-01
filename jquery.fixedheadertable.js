@@ -10,7 +10,8 @@
 
         // plugin's default options
         var defaults = {
-
+            
+            autoShow:            true,
             loader:              false,
             hasFooter:           false,
             colBorder:           true,
@@ -128,21 +129,47 @@
                         });
                     }
                     
-                } else {
-                    return self;
+                    if ( !settings.autoShow ) {
+                        $wrapper.hide();
+                    }
                 }
+                
+                return self;
             },
             
             show: function() {
-            
+                var $self = $(this),
+                    self  = this;
+                    
+                $self.closest('.fht-table-wrapper')
+                     .show();
+                     
+                return this; 
             },
             
             hide: function() {
-            
+                var $self = $(this),
+                    self  = this;
+                    
+                $self.closest('.fht-table-wrapper')
+                    .hide();
+                
+                return this;
             },
             
             destroy: function() {
-            
+                var $self    = $(this),
+                    self     = this,
+                    $wrapper = $self.closest('.fht-table-wrapper');
+                    
+                $self.insertBefore($wrapper)
+                     .removeAttr('style')
+                     .append($wrapper.find('tfoot'))
+                     .removeClass('fht-table');
+                
+                $wrapper.remove();
+                
+                return this;
             }
 
 

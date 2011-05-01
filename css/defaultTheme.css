@@ -20,48 +20,52 @@ table.fht-table tfoot,
 table.fht-table tbody,
 table.fht-table tr,
 table.fht-table th,
-table.fht-table td,
-.fht-table-head table,
-.fht-table-head table thead,
-.fht-table-head table tr,
-.fht-table-head table th {
+table.fht-table td {
     margin: 0;
 	padding: 0;
-	border: 0;
+
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-}
+	}
 
-table.fht-table,
-.fht-table-head table {
+table.fht-table {
     border-collapse: collapse;
     border-spacing: 0;
-}
+	}
 
 /* @end */
 
 /* @group Content */
 
+div.fht-temp-div {
+	width:100px;
+	height:50px;
+	overflow: scroll;
+	}
+	div.fht-temp-div div {
+		width: 100%;
+		height:100px;
+		}
+
 div.fht-table-wrapper {
     overflow: hidden;
-}
+	}
 
 div.fht-tbody {
     overflow-y: auto;
     overflow-x: hidden;
-}
+	}
 
-table.fht-table,
-.fht-table-head table {
+table.fht-table {
     font-family: "Trebuchet MS", Verdana, Arial, sans-serif;
     font-size: 1em;
     color: #050505;
-}
+	}
 
-table.fht-table th .fht-th {
+table.fht-table .fht-cell {
     height: 1px;
-}
+	}
 
 /* @end */
 

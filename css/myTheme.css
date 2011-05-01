@@ -1,7 +1,20 @@
-.myTable {
-    width: 500px;
-    }
-    
-.myOtherTable {
-    width: 850px;
-    }
+
+.myTable th.first {
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+	}
+	
+.myTable th.last {
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-right-radius: 5px;
+	}
+
+td, th {
+
+}
+
+tbody td {
+	background: #eee !important;
+}

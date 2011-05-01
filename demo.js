@@ -1,15 +1,18 @@
 $(document).ready(function() {
-    $('.myTable, .myOtherTable').fixedHeaderTable({ tableHeight: '350', hasFooter: true, autoShow: false });
-    $('.myOtherTable').fixedHeaderTable('show');
-    setTimeout(showMyTable, 5000);
+    $('.myTable').fixedHeaderTable({ width: '600', height: '350', footer: true });
     
-    setTimeout(hideMyTable, 8000);
+	$('a.makeTable').bind('click', function() {
+		
+
+		$('.myTable').fixedHeaderTable('destroy');
+		
+		$('.myTable th, .myTable td')
+			.css('border', $('#border').val() + 'px solid ' + $('#color').val());	
+		$('.myTable').fixedHeaderTable({ width: $('#width').val(), height: $('#height').val(), footer: true });
+	});
 });
 
-showMyTable = function() {
-    $('.myTable').fixedHeaderTable('show');
-}
-
-hideMyTable = function() {
-    $('.myTable').fixedHeaderTable('destroy');
+var resetup = function() {
+	console.log('test');
+	$('.myTable').fixedHeaderTable('setup', { width: '400', height: '550', footer: true });
 }

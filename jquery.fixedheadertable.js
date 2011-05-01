@@ -11,13 +11,17 @@
         // plugin's default options
         var defaults = {
             
+            width:	'100%',
+            height: '100%',
+            borderCollapse: true,
+            
             autoShow:            true,
             loader:              false,
-            hasFooter:           false,
-            colBorder:           true,
-            cloneHeaderToFooter: false,
+            footer:              false,
+			cloneHeadToFoot:	 false,
+            cloneHeaderToFooter: false, // deprecated option
             autoResize:          false,
-            onComplete:          null
+            complete:            null
             
         }
 
@@ -56,13 +60,17 @@
                     
                     if ( helpers._isTable($self) ) {
                         methods.setup.apply(this, Array.prototype.slice.call(arguments, 1));
+                        
+                        $.isFunction(options.complete) && options.complete.call(this);
+                    } else {
+                    	$.error('Invalid table mark-up');
                     }
+
                 });
                 
             },
 
-            // a public method. for demonstration purposes only - remove it!
-            setup: function() {
+            setup: function( options ) {
                 var $self  = $(this),
                     self   = this,
                     $thead = $self.find('thead'),
@@ -74,7 +82,15 @@
                     $divBody,
                     $fixedHeadRow,
                     $temp;
-
+                    
+                settings.scrollbarOffset = helpers._getScrollbarWidth();
+				settings.themeClassName = $self.attr('class');
+				
+                $self.css({
+                    width: settings.width - settings.scrollbarOffset,
+                    height: settings.height
+                });
+                
                 if ( !$self.closest('.fht-table-wrapper').length ) {
                     $self.addClass('fht-table');
                     $self.wrap('<div class="fht-table-wrapper"></div>');
@@ -83,56 +99,78 @@
                 $wrapper = $self.closest('.fht-table-wrapper');
                 
                 $wrapper.css({
-                    width: $self.outerWidth(true),
-                    height: settings.tableHeight
+                    width: settings.width,
+                    height: settings.height
                 });
                 
                 if ( !$self.hasClass('fht-table-init') ) {
                     
                     $self.wrap('<div class="fht-tbody"></div>');
-                    
-                    var tbodyHeight = $wrapper.height() - $thead.outerHeight(true) - $tfoot.outerHeight(true);
-                    $divBody = $self.closest('.fht-tbody');
-                    $divBody.css({
-                        'height': tbodyHeight
-                    });
+                        
+                }
 
-                    var tableProps = helpers._getTableProps($self);
-                    
+                var tableProps = helpers._getTableProps($self);
+                
+                if ( !$self.hasClass('fht-table-init') ) {    
                     $divHead = $('<div class="fht-head"><table class="fht-table"></table></div>').prependTo($wrapper);
                     
                     $thead.clone().appendTo($divHead.find('table'));
+                } else {
+                	$divHead = $wrapper.find('div.fht-head');
+                }
+                
+                $divHead.find('table')
+                	.addClass(settings.themeClassName);
                     
-                    $divHead.find('thead th').each(function(index) {
-                        $temp = $('<div class="fht-th"></div>').appendTo($(this));
-                        
-                        $temp.css({
-                            'width': tableProps.thead[index]
-                        });
-                    });
+                helpers._setupClone( $divHead, tableProps.thead );
+                
+                $self.css({
+                    'margin-top': -$thead.outerHeight(true) - tableProps.border
+                });
                     
-                    $self.css({
-                        'margin-top': -$thead.outerHeight(true)
-                    });
+                if ( settings.footer ) {
+                	
+                	if ( !$self.hasClass('fht-table-init') ) {
+                    	$divFoot = $('<div class="tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
+                    } else {
+                    	$divFoot = $wrapper.find('div.tfoot');
+                    }
                     
-                    if ( settings.hasFooter && $self.find('tfoot').length ) {
-                        $divFoot = $('<div class="tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
+                	$divFoot.find('table')
+                		.addClass(settings.themeClassName);
+                	
+                	if ( settings.cloneHeadToFoot || settings.cloneHeaderToFooter ) {
+                		$thead.find('tr').clone().appendTo($divFoot.find('table tfoot'));
+                		
+                		helpers._setupClone( $divFoot, tableProps.thead );
+                	} else if ( !$self.find('tfoot').length && ( !settings.cloneHeadToFoot || !settings.cloneHeaderToFooter ) ) {
+                		$.error( 'Invalid markup: tfoot does not exist in table!');
+                		
+                		return self;
+                	} else {
                         
                         $tfoot.appendTo($divFoot.find('table'));
+                        $divFoot.find('table')
+                        	.css({
+                        		'margin-top': -tableProps.border
+                        	});
                         
-                        $divFoot.find('tfoot td').each(function(index) {
-                            $temp = $('<div class="fht-td"></div>').appendTo($(this));
-                            
-                            $temp.css({
-                                'width': tableProps.thead[index]
-                            });
-                        });
-                    }
-                    
-                    if ( !settings.autoShow ) {
-                        $wrapper.hide();
+                        helpers._setupClone( $divFoot, tableProps.thead );
+                        
                     }
                 }
+                
+                var tbodyHeight = $wrapper.height() - $thead.outerHeight(true) - $tfoot.outerHeight(true) - tableProps.border;
+                $divBody = $self.closest('.fht-tbody');
+                $divBody.css({
+	                    'height': tbodyHeight
+	                });
+                
+                if ( !settings.autoShow ) {
+                    $wrapper.hide();
+                }
+                
+                $self.addClass('fht-table-init');
                 
                 return self;
             },
@@ -165,7 +203,9 @@
                 $self.insertBefore($wrapper)
                      .removeAttr('style')
                      .append($wrapper.find('tfoot'))
-                     .removeClass('fht-table');
+                     .removeClass('fht-table fht-table-init')
+                     .find('.fht-cell')
+                     .remove();
                 
                 $wrapper.remove();
                 
@@ -184,7 +224,6 @@
         // arguments to be passed to the method
         var helpers = {
 
-            // a private method. for demonstration purposes only - remove it!
             _isTable: function( $obj ) {
                 var $self = $obj,
                     hasTable = $self.is('table'),
@@ -202,18 +241,67 @@
             _getTableProps: function( $obj ) {
                 var tableProp = {
                     thead: {},
-                    tbody: {}
+                    tbody: {},
+                    border: 0
                 };
-                    
+				
+				tableProp.border = ( $obj.find('th:first-child').outerWidth() - $obj.find('th:first-child').innerWidth() ) / 2;
+				
                 $obj.find('thead th').each(function(index) {
-                    tableProp.thead[index] = $(this).width();
+                	
+                    tableProp.thead[index] = $(this).width() + tableProp.border;
                 });
                 
                 $obj.find('tbody tr:first-child td').each(function(index) {
-                    tableProp.tbody[index] = $(this).width();
+                    tableProp.tbody[index] = $(this).width() + tableProp.border;
                 });
-                
+
                 return tableProp;
+            },
+            
+            _setupClone: function( $head, cellArray ) {
+                var $self    = $head,
+                    selector = ( $self.find('thead').length ) ?
+                        'thead th' : 
+                        ( $self.find('tfoot').length ) ?
+                            'tfoot td' :
+                            'tbody td',
+                    $cell;
+
+                $self.css({
+                	'margin-right': settings.scrollbarOffset
+                });
+                $self.find(selector).each(function(index) {
+                    $cell = ( $(this).find('div.fht-cell').length ) ? $(this).find('div.fht-cell') : $('<div class="fht-cell"></div>').appendTo($(this));
+
+                    $cell.css({
+                        'width': cellArray[index]
+                    });
+                });
+            },
+            
+            _getScrollbarWidth: function() {
+            	var scrollbarWidth = 0;
+            	
+            	if ( !scrollbarWidth ) {
+					if ( $.browser.msie ) {
+						var $textarea1 = $('<textarea cols="10" rows="2"></textarea>')
+								.css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body'),
+							$textarea2 = $('<textarea cols="10" rows="2" style="overflow: hidden;"></textarea>')
+								.css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body');
+						scrollbarWidth = $textarea1.width() - $textarea2.width();
+						$textarea1.add($textarea2).remove();
+					} else {
+						var $div = $('<div />')
+							.css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000 })
+							.prependTo('body').append('<div />').find('div')
+								.css({ width: '100%', height: 200 });
+						scrollbarWidth = 100 - $div.width();
+						$div.parent().remove();
+					}
+				}
+				
+				return scrollbarWidth;
             }
 
         }

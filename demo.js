@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('.myTable').fixedHeaderTable({ width: '600', height: '350', footer: true, altClass: 'odd', themeClass: 'fancyTable' });
+    $('.myTable').fixedHeaderTable({ width: '600', height: '250', footer: true, altClass: 'odd', themeClass: 'fancyTable' });
     
 	$('a.makeTable').bind('click', function() {
 		
@@ -9,6 +9,6 @@ $(document).ready(function() {
 		$('.myTable th, .myTable td')
 			.css('border', $('#border').val() + 'px solid ' + $('#color').val());
 			
-		$('.myTable').fixedHeaderTable({ width: $('#width').val(), height: $('#height').val(), footer: true });
+		$('.myTable').fixedHeaderTable({ width: $('#width').val(), height: $('#height').val(), footer: true, themeClass: 'fancyTable' });
 	});
 });

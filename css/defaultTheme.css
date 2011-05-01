@@ -14,13 +14,13 @@
 
 /* @group Reset */
 
-table.fht-table,
-table.fht-table thead,
-table.fht-table tfoot,
-table.fht-table tbody,
-table.fht-table tr,
-table.fht-table th,
-table.fht-table td {
+.fht-table,
+.fht-table thead,
+.fht-table tfoot,
+.fht-table tbody,
+.fht-table tr,
+.fht-table th,
+.fht-table td {
     margin: 0;
 	padding: 0;
 
@@ -29,7 +29,7 @@ table.fht-table td {
 	vertical-align: baseline;
 	}
 
-table.fht-table {
+.fht-table {
     border-collapse: collapse;
     border-spacing: 0;
 	}
@@ -37,16 +37,6 @@ table.fht-table {
 /* @end */
 
 /* @group Content */
-
-div.fht-temp-div {
-	width:100px;
-	height:50px;
-	overflow: scroll;
-	}
-	div.fht-temp-div div {
-		width: 100%;
-		height:100px;
-		}
 
 div.fht-table-wrapper {
     overflow: hidden;
@@ -57,35 +47,9 @@ div.fht-tbody {
     overflow-x: hidden;
 	}
 
-table.fht-table {
-    font-family: "Trebuchet MS", Verdana, Arial, sans-serif;
-    font-size: 1em;
-    color: #050505;
-	}
-
-table.fht-table .fht-cell {
+.fht-table .fht-cell {
 	overflow: hidden;
     height: 1px;
 	}
 
-/* @end */
-
-/* @group Layout */
-
-table.fht-table thead tr th,
-table.fht-table tfoot tr td,
-.fht-table-head table thead tr th {
-	/* appearance */
-	
-	/* size */
-	padding: 5px;
-	
-	/* text */
-	text-align: left;
-	}
-table.fht-table tbody tr td {
-	/* size */
-	padding: 5px;
-	}
-	
 /* @end */

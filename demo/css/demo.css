@@ -1,5 +1,21 @@
-.divider {
-	margin: 20px 0;
+body {
+	/* appearance */
+	background-image: url(../images/bg.png);
+	background-repeat: repeat;
+	
+	/* text */
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	}
+	
+.styles {
+	display: none;
+	}
+	
+input::-webkit-input-placeholder {
+    color: #585858;
+	}
+input:-moz-placeholder {
+    color: #585858;
 	}
 	
 .button {
@@ -21,11 +37,10 @@
 	-webkit-box-shadow: 0 1px 0 rgba(139,139,139,1) inset, 0 1px 0 rgba(88,88,88,1);
 	-moz-box-shadow: 0 1px 0 rgba(139,139,139,1) inset, 0 1px 0 rgba(88,88,88,1);
 	box-shadow: 0 1px 0 rgba(139,139,139,1) inset, 0 1px 0 rgba(88,88,88,1);
-	cursor: pointer;
 	
 	/* position */
 	display: inline-block;
-	margin: 10px;
+	margin: 10px 0;
 	
 	/* size */
 	padding: 0 10px;
@@ -44,91 +59,91 @@
 	-moz-box-shadow: 0 0 3px #6495ed;
 	box-shadow: 0 0 3px #6495ed;
 	}
-
-.myTableWrapper {
-	width: 800px;
-	height: 500px;
+	
+#buildTable {
+	margin-top: 20px;
+	}
+	
+#tablePlaceholder {
+	margin-top: 40px;
 	}
 
-.fancyTable td, .fancyTable th {
+.table_options {
 	/* appearance */
-	border: 1px solid #778899;
+	background-color: #252525;
+	background-image: -moz-linear-gradient(
+		top,
+		rgba(255,255,255,0.05) 20%,
+		rgba(255,255,255,0.0) 80%);
+	
+	background-image: -webkit-gradient(
+		linear, left top, left bottom,
+		color-stop(20%,rgba(255,255,255,0.05)),
+		color-stop(80%,rgba(255,255,255,0.0)));
+	border: 1px solid #000000;
+	-webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0 5px 10px rgba(0,0,0,0.75);
+	box-shadow: 0 5px 10px rgba(0,0,0,0.75);
+	overflow: hidden;
 	
 	/* size */
-	padding: 5px;
-	}
-
-.fancyTable {
-	/* text */
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	}
-
-.fancyTable tbody tr td {
-	/* appearance */
-	background-color: #eef2f9;
-	background-image: -moz-linear-gradient(
-		top,
-		rgba(255,255,255,0.4) 0%,
-		rgba(255,255,255,0.2) 50%,
-		rgba(255,255,255,0.1) 51%,
-		rgba(255,255,255,0.0) 100%);
+	padding: 10px 0;
 	
-	background-image: -webkit-gradient(
-		linear, left top, left bottom,
-		color-stop(0%,rgba(255,255,255,0.4)),
-		color-stop(50%,rgba(255,255,255,0.2)),
-		color-stop(51%,rgba(255,255,255,0.1)),
-		color-stop(100%,rgba(255,255,255,0.0)));
+	}
+	h2 {
+		/* text */
+		color: #dadada;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		text-shadow: 0 -1px 1px #000000;
+		}
+	.table_options fieldset {
+		/* appearance */
+		border: none;
 		
-	/* text */
-	color: #262c31;
-	font-size: 11px;
-	}
-
-.fancyTable tbody tr.odd td {
-	/* appearance */
-	background-color: #d6e0ef;
-	background-image: -moz-linear-gradient(
-		top,
-		rgba(255,255,255,0.4) 0%,
-		rgba(255,255,255,0.2) 50%,
-		rgba(255,255,255,0.1) 51%,
-		rgba(255,255,255,0.0) 100%);
-	
-	background-image: -webkit-gradient(
-		linear, left top, left bottom,
-		color-stop(0%,rgba(255,255,255,0.4)),
-		color-stop(50%,rgba(255,255,255,0.2)),
-		color-stop(51%,rgba(255,255,255,0.1)),
-		color-stop(100%,rgba(255,255,255,0.0)));
-	}
-
-.fancyTable thead tr th,
-.fancyTable tfoot tr td {
-	/* appearance */
-	background-color: #8ca9cf;
-	background-image: -moz-linear-gradient(
-		top,
-		rgba(255,255,255,0.4) 0%,
-		rgba(255,255,255,0.2) 50%,
-		rgba(255,255,255,0.1) 51%,
-		rgba(255,255,255,0.0) 100%);
-	
-	background-image: -webkit-gradient(
-		linear, left top, left bottom,
-		color-stop(0%,rgba(255,255,255,0.4)),
-		color-stop(50%,rgba(255,255,255,0.2)),
-		color-stop(51%,rgba(255,255,255,0.1)),
-		color-stop(100%,rgba(255,255,255,0.0)));
+		/* size */
+		padding: 5px 0;
 		
-	/* text */
-	color: #121517;
-	font-size: 12px;
-	font-weight: bold;
-	text-shadow: 0 1px 1px #e8ebee;
-	}
-	
-
+		/* text */
+		text-align: right;
+		}
+		.table_options label {
+			/* size */
+			padding: 0 10px 0 0;
+			
+			/* text */
+			color: #b2b2b2;
+			font-size: 12px;
+			text-shadow: 0 -1px 1px #000000;
+			
+			}
+		.table_options input,
+		.table_options input:focus {
+			/* appearance */
+			background-color: #1f1f1f;
+			border: 1px solid #000000;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			-webkit-box-shadow: 0 1px 1px rgba(63,63,63,1), 0 1px 3px rgba(0,0,0,1) inset;
+			-moz-box-shadow: 0 1px 1px rgba(63,63,63,1), 0 1px 3px rgba(0,0,0,1) inset;
+			box-shadow: 0 1px 1px rgba(63,63,63,1), 0 1px 3px rgba(0,0,0,1) inset;
+			
+			/* size */
+			padding: 8px 5px;
+			width: 50px;
+			
+			/* text */
+			color: #fff;
+			}
+		.table_options input:focus {
+			outline: 1px solid #fff;
+			}
+			
+			
+			
+			
 /* Fancy Dark Table */	
 .fancyDarkTable .numeric {
 	/* text */
@@ -153,7 +168,7 @@
 
 .fancyDarkTable tbody tr td {
 	/* appearance */
-	background-color: #48535e;
+	background-color: #3f3f3f;
 	background-image: -moz-linear-gradient(
 		top,
 		rgba(255,255,255,0.0) 0%,
@@ -163,10 +178,8 @@
 		linear, left top, left bottom,
 		color-stop(0%,rgba(255,255,255,0.0)),
 		color-stop(100%,rgba(255,255,255,0.02)));
-	border-bottom-color: #22272e;
-	border-top-color: #708090;
-	border-right-color: #48535e;
-	border-left-color: #3c454f;
+	border-bottom-color: #2f2f2f;
+	border-right-color: #2f2f2f;
 
 	/* size */
 	padding: 10px 5px 30px 5px;
@@ -180,7 +193,7 @@
 
 .fancyDarkTable tbody tr.odd td {
 	/* appearance */
-	background-color: #3c454f;
+	background-color: #464646;
 	background-image: -moz-linear-gradient(
 		top,
 		rgba(255,255,255,0.0) 0%,
@@ -190,25 +203,21 @@
 		linear, left top, left bottom,
 		color-stop(0%,rgba(255,255,255,0.0)),
 		color-stop(100%,rgba(255,255,255,0.02)));
-	border-right-color: #3c454f;
+	border-right-color: #2f2f2f;
 	}
 
 .fancyDarkTable thead tr th,
 .fancyDarkTable tfoot tr td {
 	/* appearance */
-	background-color: #0b0d10;
+	background-color: #151515;
 	background-image: -moz-linear-gradient(
 		top,
-		rgba(255,255,255,0.4) 0%,
-		rgba(255,255,255,0.2) 50%,
-		rgba(255,255,255,0.1) 51%,
+		rgba(255,255,255,0.05) 0%,
 		rgba(255,255,255,0.0) 100%);
 	
 	background-image: -webkit-gradient(
 		linear, left top, left bottom,
-		color-stop(0%,rgba(255,255,255,0.4)),
-		color-stop(50%,rgba(255,255,255,0.2)),
-		color-stop(51%,rgba(255,255,255,0.1)),
+		color-stop(0%,rgba(255,255,255,0.05)),
 		color-stop(100%,rgba(255,255,255,0.0)));
 		
 	/* text */
@@ -219,7 +228,9 @@
 	}
 	
 .fancyDarkTable .fht-head {
-	-webkit-box-shadow: 0 5px 10px #000;
+	-webkit-box-shadow: 0 -1px 0 #3f3f3f;
+	-moz-box-shadow: 0 -1px 0 #3f3f3f;
+	box-shadow: 0 -1px 0 #3f3f3f;
 	z-index: 1;
 	position: relative;
 	}

@@ -6,19 +6,11 @@
         <link href="../css/defaultTheme.css" rel="stylesheet" media="screen" />
         <link href="css/myTheme.css" rel="stylesheet" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+
         <script src="../jquery.fixedheadertable.js"></script>
         <script src="demo.js"></script>
     </head>
     <body>
-        <div>
-        	<ul>
-        	<li><input type="text" id="width" value="" placeholder="width in px" /></li>
-        	<li><input type="text" id="height" value="" placeholder="height in px" /></li>
-        	<li><input type="text" id="border" value="" placeholder="border in px" /></li>
-        	<li><input type="text" id="color" value="" placeholder="color (#FFFFFF)" /></li>
-        	<li><a href="#" class="makeTable">Resize Table</a></li>
-        	</ul>
-        </div>
         <table class="myTable01" cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
@@ -30,16 +22,6 @@
                     <th>Bounce Rate</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <td>Browser</td>
-                    <td>Visits</td>
-                    <td>Pages/Visit</td>
-                    <td>Avg. Time on Site</td>
-                    <td>% New Visits</td>
-                    <td>Bounce Rate</td>
-                </tr>
-            </tfoot>
             <tbody>
                 <tr>
                     <td>Firefox</td>
@@ -187,12 +169,12 @@
             </thead>
             <tfoot>
                 <tr>
-                    <td>Browser</td>
-                    <td>Visits</td>
-                    <td>Pages/Visit</td>
-                    <td>Avg. Time on Site</td>
-                    <td>% New Visits</td>
-                    <td>Bounce Rate</td>
+                    <td>This is a unique footer</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
                 </tr>
             </tfoot>
             <tbody>
@@ -375,7 +357,7 @@
 	            </thead>
 	            <tfoot>
 	                <tr>
-	                    <td colspan="6"></td>
+	                    <td colspan="6"><a class="button pagination" href="#">Prev</a><a class="button pagination" href="#">Next</a></td>
 	                </tr>
 	            </tfoot>
 	            <tbody>

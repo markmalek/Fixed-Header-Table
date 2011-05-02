@@ -58,7 +58,7 @@
                     if ( helpers._isTable($self) ) {
                         methods.setup.apply(this, Array.prototype.slice.call(arguments, 1));
                         
-                        $.isFunction(options.complete) && options.complete.call(this);
+                        $.isFunction(settings.complete) && settings.complete.call(this);
                     } else {
                     	$.error('Invalid table mark-up');
                     }

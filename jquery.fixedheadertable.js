@@ -85,11 +85,17 @@
                     
                 settings.scrollbarOffset = helpers._getScrollbarWidth();
 				settings.themeClassName = settings.themeClass;
-
+				
+				if ( settings.width.search('%') > -1 ) {
+					var widthMinusScrollbar = $self.parent().innerWidth() - settings.scrollbarOffset;
+				} else {
+					var widthMinusScrollbar = settings.width - settings.scrollbarOffset;				
+				}
+				
                 $self.css({
-	                    width: settings.width - settings.scrollbarOffset
-	                })
-	                .addClass(settings.themeClassName);
+	                    width: widthMinusScrollbar
+	                });
+	                
 
                 if ( !$self.closest('.fht-table-wrapper').length ) {
                     $self.addClass('fht-table');
@@ -99,9 +105,10 @@
                 $wrapper = $self.closest('.fht-table-wrapper');
                 
                 $wrapper.css({
-                    width: settings.width,
-                    height: settings.height
-                });
+	                    width: settings.width,
+	                    height: settings.height
+	                })
+	                .addClass(settings.themeClassName);
 
                 if ( !$self.hasClass('fht-table-init') ) {
                     
@@ -121,10 +128,7 @@
                 } else {
                 	$divHead = $wrapper.find('div.fht-head');
                 }
-                
-                $divHead.find('table')
-                	.addClass(settings.themeClassName);
-                    
+
                 helpers._setupClone( $divHead, tableProps.thead );
                 
                 $self.css({
@@ -142,9 +146,6 @@
                     } else {
                     	$divFoot = $wrapper.find('div.tfoot');
                     }
-                    
-                	$divFoot.find('table')
-                		.addClass(settings.themeClassName);
                 	
                 	if ( settings.cloneHeadToFoot || settings.cloneHeaderToFooter ) {
                 		$thead.find('tr').clone().appendTo($divFoot.find('table tfoot'));
@@ -187,6 +188,17 @@
             },
             
             /*
+             * Resize the table
+             * Incomplete
+             */
+            resize: function( options ) {
+            	var $self = $(this),
+            		self  = this;
+            	
+            	return self;
+            },
+            
+            /*
              * Show a hidden fixedHeaderTable table
              */
             show: function() {
@@ -196,7 +208,7 @@
                 $self.closest('.fht-table-wrapper')
                      .show();
                      
-                return this; 
+                return self; 
             },
             
             /*
@@ -209,7 +221,7 @@
                 $self.closest('.fht-table-wrapper')
                     .hide();
                 
-                return this;
+                return self;
             },
             
             /*
@@ -229,7 +241,7 @@
                 
                 $wrapper.remove();
                 
-                return this;
+                return self;
             }
 
 

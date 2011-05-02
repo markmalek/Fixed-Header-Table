@@ -1,14 +1,14 @@
 /*!
 * jquery.fixedHeaderTable. The jQuery fixedHeaderTable plugin
 *
-* Copyright (c) 2009 Mark Malek
-* http://fixedheadertable.mmalek.com
+* Copyright (c) 2011 Mark Malek
+* http://fixedheadertable.com
 *
 * Licensed under MIT
 * http://www.opensource.org/licenses/mit-license.php
 *
 * Launch  : October 2009
-* Version : beta 0.1
+* Version : 1.2
 * Released: TBA
 */
 
@@ -39,7 +39,7 @@
 /* @group Content */
 
 div.fht-table-wrapper {
-    overflow: hidden;
+
 	}
 
 div.fht-tbody {

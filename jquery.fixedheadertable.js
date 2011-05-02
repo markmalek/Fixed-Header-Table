@@ -198,7 +198,9 @@
                      
                 } else if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'string'
                 	&& typeof(arg2) !== 'undefined' && typeof(arg2) === 'number' ) {
-
+				
+					// User provided show duration with an effect
+					
                 	$wrapper.show(arg1, arg2, function() {
                 		$.isFunction(arg3) && arg3.call(this);
                 	});

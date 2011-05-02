@@ -122,11 +122,11 @@
                 helpers._setupClone( $divBody, tableProps.tbody );
 
                 if ( !$self.hasClass('fht-table-init') ) {    
-                    $divHead = $('<div class="fht-head"><table class="fht-table"></table></div>').prependTo($wrapper);
+                    $divHead = $('<div class="fht-thead"><table class="fht-table"></table></div>').prependTo($wrapper);
                     
                     $thead.clone().appendTo($divHead.find('table'));
                 } else {
-                	$divHead = $wrapper.find('div.fht-head');
+                	$divHead = $wrapper.find('div.fht-thead');
                 }
 
                 helpers._setupClone( $divHead, tableProps.thead );
@@ -141,33 +141,14 @@
                  */
                 if ( settings.footer ) {
                 	
-                	if ( !$self.hasClass('fht-table-init') ) {
-                    	$divFoot = $('<div class="tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
-                    } else {
-                    	$divFoot = $wrapper.find('div.tfoot');
-                    }
+                	helpers._setupTableFooter( $self, self, tableProps );
                 	
-                	if ( settings.cloneHeadToFoot || settings.cloneHeaderToFooter ) {
-                		$thead.find('tr').clone().appendTo($divFoot.find('table tfoot'));
-                		
-                		helpers._setupClone( $divFoot, tableProps.thead );
-                	} else if ( !$self.find('tfoot').length && ( !settings.cloneHeadToFoot || !settings.cloneHeaderToFooter ) ) {
-                		$.error( 'Invalid markup: tfoot does not exist in table!');
-                		
-                		return self;
-                	} else {
-                        
-                        $tfoot.appendTo($divFoot.find('table'));
-                        $divFoot.find('table')
-                        	.css({
-                        		'margin-top': -tableProps.border
-                        	});
-                        
-                        helpers._setupClone( $divFoot, tableProps.thead );
-                        
-                    }
+                	if ( !$tfoot.length ) {
+                		$tfoot = $wrapper.find('div.fht-tfoot table');
+                	}
+
                 }
-                
+
                 var tbodyHeight = $wrapper.height() - $thead.outerHeight(true) - $tfoot.outerHeight(true) - tableProps.border;
                 $divBody.css({
 	                    'height': tbodyHeight
@@ -189,7 +170,7 @@
             
             /*
              * Resize the table
-             * Incomplete
+             * Incomplete - not implemented yet
              */
             resize: function( options ) {
             	var $self = $(this),
@@ -201,26 +182,70 @@
             /*
              * Show a hidden fixedHeaderTable table
              */
-            show: function() {
-                var $self = $(this),
-                    self  = this;
-                    
-                $self.closest('.fht-table-wrapper')
-                     .show();
+            show: function( arg1, arg2, arg3 ) {
+                var $self		= $(this),
+                    self  		= this,
+                    $wrapper 	= $self.closest('.fht-table-wrapper');
+
+				// User provided show duration without a specific effect
+                if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'number' ) {
+                	
+                	$wrapper.show(arg1, function() {
+                		$.isFunction(arg3) && arg3.call(this);
+                	});
+                	
+                	return self;
                      
-                return self; 
+                } else if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'string'
+                	&& typeof(arg2) !== 'undefined' && typeof(arg2) === 'number' ) {
+
+                	$wrapper.show(arg1, arg2, function() {
+                		$.isFunction(arg3) && arg3.call(this);
+                	});
+                	
+                	return self;
+                	
+                }
+                	
+            	$self.closest('.fht-table-wrapper')
+                 .show();
+                 $.isFunction(arg3) && arg3.call(this);
+                
+                return self;
             },
             
             /*
              * Hide a fixedHeaderTable table
              */
-            hide: function() {
-                var $self = $(this),
-                    self  = this;
+            hide: function( arg1, arg2, arg3 ) {
+                var $self 		= $(this),
+                    self		= this
+                    $wrapper 	= $self.closest('.fht-table-wrapper');
+                    
+                // User provided show duration without a specific effect
+                if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'number' ) {
+                	$wrapper.hide(arg1, function() {
+                		$.isFunction(arg3) && arg3.call(this);
+                	});
+                     
+                     return self;
+                } else if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'string'
+                	&& typeof(arg2) !== 'undefined' && typeof(arg2) === 'number' ) {
+
+                	$wrapper.hide(arg1, arg2, function() {
+                		$.isFunction(arg3) && arg3.call(this);
+                	});
+                	
+                	return self;
+                }
                     
                 $self.closest('.fht-table-wrapper')
-                    .hide();
+                     .hide();
+                     
+                $.isFunction(arg3) && arg3.call(this);
+                     
                 
+                     
                 return self;
             },
             
@@ -243,7 +268,6 @@
                 
                 return self;
             }
-
 
         }
 
@@ -269,6 +293,49 @@
             },
             
             /*
+             * return void
+             */
+            _setupTableFooter: function ( $obj, obj, tableProps ) {
+            	
+            	var $self 		= $obj,
+            		self  		= obj,
+            		$wrapper 	= $self.closest('.fht-table-wrapper'),
+            		$tfoot		= $self.find('tfoot'),
+            		$divFoot	= $wrapper.find('div.fht-tfoot');
+            		
+            	if ( !$divFoot.length ) {
+            		$divFoot = $('<div class="fht-tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
+            	}
+            	
+            	switch (true) {
+            		case settings.cloneHeadToFoot && !$tfoot.length:
+            			
+            			var $divHead = $wrapper.find('div.fht-thead');
+            			
+            			$divFoot.empty();
+            			$divHead.find('table')
+            				.clone()
+            				.appendTo($divFoot);
+            				
+            			break;
+            		case $tfoot.length && !settings.cloneHeadToFoot && !$divFoot.find('tr').length:
+            			
+            			$divFoot.find('table')
+            				.append($tfoot)
+	                    	.css({
+	                    		'margin-top': -tableProps.border
+	                    	});
+            				
+            			helpers._setupClone( $divFoot, tableProps.tfoot );
+            			
+            			break;
+            		default:
+            			break;
+            	}
+            	
+            },
+            
+            /*
              * return object
              * Widths of each thead cell and tbody cell for the first rows.
              * Used in fixing widths for the fixed header and optional footer.
@@ -277,14 +344,18 @@
                 var tableProp = {
                     thead: {},
                     tbody: {},
+                    tfoot: {},
                     border: 0
                 };
 				
 				tableProp.border = ( $obj.find('th:first-child').outerWidth() - $obj.find('th:first-child').innerWidth() ) / 2;
 				
-                $obj.find('thead th').each(function(index) {
-                	
+                $obj.find('thead tr:first-child th').each(function(index) {
                     tableProp.thead[index] = $(this).width() + tableProp.border;
+                });
+                
+                $obj.find('tfoot tr:first-child td').each(function(index) {
+                	tableProp.tfoot[index] = $(this).width() + tableProp.border;
                 });
                 
                 $obj.find('tbody tr:first-child td').each(function(index) {
@@ -306,18 +377,24 @@
                             'tfoot td' :
                             'tbody td',
                     $cell;
-				
-				if ( !$self.hasClass('fht-tbody') ) {
-	                $self.css({
-	                	'margin-right': settings.scrollbarOffset
-	                });
-                }
+                
                 $self.find(selector).each(function(index) {
                     $cell = ( $(this).find('div.fht-cell').length ) ? $(this).find('div.fht-cell') : $('<div class="fht-cell"></div>').appendTo($(this));
-
+					
                     $cell.css({
                         'width': parseInt(cellArray[index])
                     });
+                    
+                    /*
+                     * Fixed Header and Footer should extend the full width
+                     * to align with the scrollbar of the body 
+                     */
+                    if ( !$(this).closest('.fht-tbody').length && $(this).is(':last-child') ) {
+                    	var padding = ( ( $(this).innerWidth() - $(this).width() ) / 2 ) + settings.scrollbarOffset;
+                    	$(this).css({
+                    		'padding-right': padding + 'px'
+                    	});
+                    }
                 });
             },
             
@@ -350,6 +427,7 @@
             }
 
         }
+
 
         // if a method as the given argument exists
         if ( methods[method] ) {

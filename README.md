@@ -3,9 +3,9 @@
  
 ## Methods:
 
-* show - .fixedHeaderTable('show')
-* hide - .fixedHeaderTable('hide')
-* destroy - .fixedHeaderTable('destroy')
+* show - `$('selector').fixedHeaderTable('show');`
+* hide - `$('selector').fixedHeaderTable('hide');`
+* destroy - `$('selector').fixedHeaderTable('destroy');`
 
 ## Options:
 

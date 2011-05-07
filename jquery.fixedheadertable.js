@@ -36,7 +36,7 @@
 			cloneHeadToFoot:	 false, // clone head and use as footer
             cloneHeaderToFooter: false, // deprecated option
             autoResize:          false, // resize table if its parent wrapper changes size
-            complete:            null // callback after plugin completes
+            create:            	 null // callback after plugin completes
             
         }
 
@@ -58,7 +58,7 @@
                     if ( helpers._isTable($self) ) {
                         methods.setup.apply(this, Array.prototype.slice.call(arguments, 1));
                         
-                        $.isFunction(settings.complete) && settings.complete.call(this);
+                        $.isFunction(settings.create) && settings.create.call(this);
                     } else {
                     	$.error('Invalid table mark-up');
                     }
@@ -221,7 +221,7 @@
              */
             hide: function( arg1, arg2, arg3 ) {
                 var $self 		= $(this),
-                    self		= this
+                    self		= this,
                     $wrapper 	= $self.closest('.fht-table-wrapper');
                     
                 // User provided show duration without a specific effect
@@ -330,8 +330,6 @@
             				
             			helpers._setupClone( $divFoot, tableProps.tfoot );
             			
-            			break;
-            		default:
             			break;
             	}
             	

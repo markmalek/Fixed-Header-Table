@@ -87,7 +87,7 @@
 				settings.themeClassName = settings.themeClass;
 				
 				if ( settings.width.search('%') > -1 ) {
-					var widthMinusScrollbar = $self.parent().innerWidth() - settings.scrollbarOffset;
+					var widthMinusScrollbar = $self.parent().width() - settings.scrollbarOffset;
 				} else {
 					var widthMinusScrollbar = settings.width - settings.scrollbarOffset;				
 				}

@@ -165,7 +165,7 @@
 		color-stop(100%,rgba(255,255,255,0.02)));
 	border-bottom-color: #22272e;
 	border-top-color: #708090;
-	border-right-color: #48535e;
+	border-right-color: #000;
 	border-left-color: #3c454f;
 
 	/* size */
@@ -190,7 +190,7 @@
 		linear, left top, left bottom,
 		color-stop(0%,rgba(255,255,255,0.0)),
 		color-stop(100%,rgba(255,255,255,0.02)));
-	border-right-color: #3c454f;
+	border-right-color: #000;
 	}
 
 .fancyDarkTable thead tr th,

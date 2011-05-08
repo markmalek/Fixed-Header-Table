@@ -165,6 +165,8 @@
                 		.addClass(settings.altClass);
                 }
                 
+                helpers._bindScroll( $divBody );
+                
                 return self;
             },
             
@@ -296,6 +298,30 @@
             
             /*
              * return void
+             * bind scroll event
+             */
+            _bindScroll: function( $obj ) {
+            	var $self = $obj,
+            		$thead = $self.siblings('.fht-thead'),
+            		$tfoot = $self.siblings('.fht-tfoot');
+            	
+            	$self.bind('scroll', function() {
+            		$thead.find('table')
+            			.css({
+            				'margin-left': -this.scrollLeft
+            			});
+            		
+            		if ( settings.cloneHeadToFoot ) {
+            			$tfoot.find('table')
+	            			.css({
+	            				'margin-left': -this.scrollLeft
+	            			});
+            		}
+            	});
+            },
+            
+            /*
+             * return void
              */
             _setupTableFooter: function ( $obj, obj, tableProps ) {
             	
@@ -411,7 +437,7 @@
 								.css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body'),
 							$textarea2 = $('<textarea cols="10" rows="2" style="overflow: hidden;"></textarea>')
 								.css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body');
-						scrollbarWidth = $textarea1.width() - $textarea2.width();
+						scrollbarWidth = $textarea1.width() - $textarea2.width() + 2; // + 2 for border offset
 						$textarea1.add($textarea2).remove();
 					} else {
 						var $div = $('<div />')

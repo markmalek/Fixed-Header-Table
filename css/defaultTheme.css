@@ -39,12 +39,12 @@
 /* @group Content */
 
 div.fht-table-wrapper {
-
+	overflow: hidden;
 	}
 
 div.fht-tbody {
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 	}
 
 .fht-table .fht-cell {

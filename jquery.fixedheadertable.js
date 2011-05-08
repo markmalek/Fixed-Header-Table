@@ -11,7 +11,7 @@
 * jQuery authoring guidelines
 *
 * Launch  : October 2009
-* Version : 1.2
+* Version : 1.2.1
 * Released: May 2nd, 2011
 *
 * 
@@ -36,7 +36,7 @@
 			cloneHeadToFoot:	 false, // clone head and use as footer
             cloneHeaderToFooter: false, // deprecated option
             autoResize:          false, // resize table if its parent wrapper changes size
-            complete:            null // callback after plugin completes
+            create:            	 null // callback after plugin completes
             
         }
 
@@ -58,7 +58,7 @@
                     if ( helpers._isTable($self) ) {
                         methods.setup.apply(this, Array.prototype.slice.call(arguments, 1));
                         
-                        $.isFunction(settings.complete) && settings.complete.call(this);
+                        $.isFunction(settings.create) && settings.create.call(this);
                     } else {
                     	$.error('Invalid table mark-up');
                     }
@@ -87,7 +87,7 @@
 				settings.themeClassName = settings.themeClass;
 				
 				if ( settings.width.search('%') > -1 ) {
-					var widthMinusScrollbar = $self.parent().innerWidth() - settings.scrollbarOffset;
+					var widthMinusScrollbar = $self.parent().width() - settings.scrollbarOffset;
 				} else {
 					var widthMinusScrollbar = settings.width - settings.scrollbarOffset;				
 				}
@@ -165,6 +165,8 @@
                 		.addClass(settings.altClass);
                 }
                 
+                helpers._bindScroll( $divBody );
+                
                 return self;
             },
             
@@ -221,7 +223,7 @@
              */
             hide: function( arg1, arg2, arg3 ) {
                 var $self 		= $(this),
-                    self		= this
+                    self		= this,
                     $wrapper 	= $self.closest('.fht-table-wrapper');
                     
                 // User provided show duration without a specific effect
@@ -296,6 +298,30 @@
             
             /*
              * return void
+             * bind scroll event
+             */
+            _bindScroll: function( $obj ) {
+            	var $self = $obj,
+            		$thead = $self.siblings('.fht-thead'),
+            		$tfoot = $self.siblings('.fht-tfoot');
+            	
+            	$self.bind('scroll', function() {
+            		$thead.find('table')
+            			.css({
+            				'margin-left': -this.scrollLeft
+            			});
+            		
+            		if ( settings.cloneHeadToFoot ) {
+            			$tfoot.find('table')
+	            			.css({
+	            				'margin-left': -this.scrollLeft
+	            			});
+            		}
+            	});
+            },
+            
+            /*
+             * return void
              */
             _setupTableFooter: function ( $obj, obj, tableProps ) {
             	
@@ -330,8 +356,6 @@
             				
             			helpers._setupClone( $divFoot, tableProps.tfoot );
             			
-            			break;
-            		default:
             			break;
             	}
             	
@@ -413,7 +437,7 @@
 								.css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body'),
 							$textarea2 = $('<textarea cols="10" rows="2" style="overflow: hidden;"></textarea>')
 								.css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body');
-						scrollbarWidth = $textarea1.width() - $textarea2.width();
+						scrollbarWidth = $textarea1.width() - $textarea2.width() + 2; // + 2 for border offset
 						$textarea1.add($textarea2).remove();
 					} else {
 						var $div = $('<div />')

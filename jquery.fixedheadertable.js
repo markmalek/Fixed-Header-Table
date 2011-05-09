@@ -11,8 +11,8 @@
 * jQuery authoring guidelines
 *
 * Launch  : October 2009
-* Version : 1.2.1
-* Released: May 2nd, 2011
+* Version : 1.2.2
+* Released: May 9th, 2011
 *
 * 
 * all CSS sizing (width,height) is done in pixels (px)
@@ -81,7 +81,8 @@
                     $divFoot,
                     $divBody,
                     $fixedHeadRow,
-                    $temp;
+                    $temp,
+                    tfootHeight = 0;
                     
                 settings.scrollbarOffset = helpers._getScrollbarWidth();
 				settings.themeClassName = settings.themeClass;
@@ -139,17 +140,19 @@
                  * Check for footer
                  * Setup footer if present
                  */
-                if ( settings.footer ) {
-                	
+                if ( settings.footer == true ) {
+
                 	helpers._setupTableFooter( $self, self, tableProps );
                 	
                 	if ( !$tfoot.length ) {
                 		$tfoot = $wrapper.find('div.fht-tfoot table');
                 	}
-
+                	
+                	tfootHeight = $tfoot.outerHeight(true);
                 }
 
-                var tbodyHeight = $wrapper.height() - $thead.outerHeight(true) - $tfoot.outerHeight(true) - tableProps.border;
+                var tbodyHeight = $wrapper.height() - $thead.outerHeight(true) - tfootHeight - tableProps.border;
+                
                 $divBody.css({
 	                    'height': tbodyHeight
 	                });
@@ -334,9 +337,9 @@
             	if ( !$divFoot.length ) {
             		$divFoot = $('<div class="fht-tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
             	}
-            	
+
             	switch (true) {
-            		case settings.cloneHeadToFoot && !$tfoot.length:
+            		case !$tfoot.length && settings.cloneHeadToFoot == true && settings.footer == true:
             			
             			var $divHead = $wrapper.find('div.fht-thead');
             			
@@ -346,7 +349,7 @@
             				.appendTo($divFoot);
             				
             			break;
-            		case $tfoot.length && !settings.cloneHeadToFoot && !$divFoot.find('tr').length:
+            		case $tfoot.length && settings.cloneHeadToFoot == false && settings.footer == true:
             			
             			$divFoot.find('table')
             				.append($tfoot)

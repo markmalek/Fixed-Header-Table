@@ -11,7 +11,7 @@
 * jQuery authoring guidelines
 *
 * Launch  : October 2009
-* Version : 1.2.2
+* Version : 1.3
 * Released: May 9th, 2011
 *
 * 

@@ -1,4 +1,4 @@
-## Version 1.2
+## Version 1.2.2
  - jquery.fixedheadertable.js
  
 ## Methods:

@@ -38,8 +38,12 @@
 
 /* @group Content */
 
-div.fht-table-wrapper {
+div.fht-table-wrapper,
+div.fht-thead,
+div.fht-tfoot,
+.fht-fixed-column .fht-tbody {
 	overflow: hidden;
+	position: relative;
 	}
 
 div.fht-tbody {
@@ -51,5 +55,18 @@ div.fht-tbody {
 	overflow: hidden;
     height: 1px;
 	}
+	
+.fht-fixed-column,
+.fht-fixed-body {
+    /* position */
+    top: 0;
+    left: 0;
+    position: absolute;
+    }
+    
+.fht-fixed-column {
+    /* position */
+    z-index: 1;
+    }
 
 /* @end */

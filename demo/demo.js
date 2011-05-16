@@ -5,7 +5,7 @@ $(document).ready(function() {
     
     $('.myTable02').fixedHeaderTable({ width: '600', height: '250', footer: true, altClass: 'odd', themeClass: 'fancyDarkTable' });
     
-    $('.myTable03').fixedHeaderTable({ width: '400', height: '400', altClass: 'odd', footer: true, themeClass: 'fancyDarkTable' });
+    $('.myTable03').fixedHeaderTable({ width: '400', height: '400', altClass: 'odd', footer: true, fixedColumn: true, themeClass: 'fancyTable' });
     
 	$('a.makeTable').bind('click', function() {
 		

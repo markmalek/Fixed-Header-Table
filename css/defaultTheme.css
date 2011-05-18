@@ -6,10 +6,16 @@
 *
 * Licensed under MIT
 * http://www.opensource.org/licenses/mit-license.php
+* 
+* http://docs.jquery.com/Plugins/Authoring
+* jQuery authoring guidelines
 *
 * Launch  : October 2009
-* Version : 1.2
-* Released: TBA
+* Version : 1.3
+* Released: May 9th, 2011
+*
+* 
+* all CSS sizing (width,height) is done in pixels (px)
 */
 
 /* @group Reset */

@@ -21,15 +21,20 @@
 .fht-table tr,
 .fht-table th,
 .fht-table td {
+	/* position */
     margin: 0;
+    
+    /* size */
 	padding: 0;
 
+	/* text */
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
 	}
 
 .fht-table {
+	/* appearance */
     border-collapse: collapse;
     border-spacing: 0;
 	}
@@ -38,35 +43,44 @@
 
 /* @group Content */
 
-div.fht-table-wrapper,
-div.fht-thead,
-div.fht-tfoot,
-.fht-fixed-column .fht-tbody {
+.fht-table-wrapper,
+.fht-table-wrapper .fht-thead,
+.fht-table-wrapper .fht-tfoot,
+.fht-table-wrapper .fht-fixed-column .fht-tbody,
+.fht-table-wrapper .fht-fixed-body .fht-tbody,
+.fht-table-wrapper .fht-tbody {
+	/* appearance */
 	overflow: hidden;
+	
+	/* position */
 	position: relative;
 	}
 
-div.fht-tbody {
-    overflow-y: auto;
-    overflow-x: auto;
-	}
+	.fht-table-wrapper .fht-fixed-body .fht-tbody,
+	.fht-table-wrapper .fht-tbody {
+		/* appearance */
+	    overflow: auto;
+		}
 
-.fht-table .fht-cell {
-	overflow: hidden;
-    height: 1px;
-	}
+		.fht-table-wrapper .fht-table .fht-cell {
+			/* appearance */
+			overflow: hidden;
+			
+			/* size */
+		    height: 1px;
+			}
 	
-.fht-fixed-column,
-.fht-fixed-body {
-    /* position */
-    top: 0;
-    left: 0;
-    position: absolute;
-    }
-    
-.fht-fixed-column {
-    /* position */
-    z-index: 1;
-    }
+	.fht-table-wrapper .fht-fixed-column,
+	.fht-table-wrapper .fht-fixed-body {
+	    /* position */
+	    top: 0;
+	    left: 0;
+	    position: absolute;
+	    }
+	    
+	.fht-table-wrapper .fht-fixed-column {
+	    /* position */
+	    z-index: 1;
+	    }
 
 /* @end */

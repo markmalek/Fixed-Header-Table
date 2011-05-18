@@ -212,14 +212,13 @@
                 if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'number' ) {
                 	
                 	$wrapper.show(arg1, function() {
-                		$.isFunction(arg3) && arg3.call(this);
+                		$.isFunction(arg2) && arg2.call(this);
                 	});
-                	
+
                 	return self;
                      
                 } else if ( typeof(arg1) !== 'undefined' && typeof(arg1) === 'string'
                 	&& typeof(arg2) !== 'undefined' && typeof(arg2) === 'number' ) {
-				
 					// User provided show duration with an effect
 					
                 	$wrapper.show(arg1, arg2, function() {
@@ -232,7 +231,7 @@
                 	
             	$self.closest('.fht-table-wrapper')
                  .show();
-                 $.isFunction(arg3) && arg3.call(this);
+                 $.isFunction(arg1) && arg1.call(this);
                 
                 return self;
             },
@@ -321,12 +320,13 @@
              */
             _bindScroll: function( $obj, tableProps ) {
             	var $self = $obj,
+            		$wrapper = $self.closest('.fht-table-wrapper'),
             		$thead = $self.siblings('.fht-thead'),
             		$tfoot = $self.siblings('.fht-tfoot');
             	
             	$self.bind('scroll', function() {
             	    if ( settings.fixedColumn == true ) {
-            	        var $fixedColumn = $('.fht-fixed-column');
+            	        var $fixedColumn = $wrapper.find('.fht-fixed-column');
             	        
             	        $fixedColumn.find('.fht-tbody table')
             	            .css({

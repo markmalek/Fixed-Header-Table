@@ -25,18 +25,19 @@
         // plugin's default options
         var defaults = {
             
-            width:	'100%',
-            height: '100%',
-            borderCollapse: true,
-            themeClass: 'fht-default',
+            width:				'100%',
+            height: 			'100%',
+            themeClass: 		'fht-default',
             
-            fixedColumn:		 false, // fixed first column
-            autoShow:            true, // hide table after its created
-            loader:              false,
-            footer:              false, // show footer
-			cloneHeadToFoot:	 false, // clone head and use as footer
-            autoResize:          false, // resize table if its parent wrapper changes size
-            create:            	 null // callback after plugin completes
+            borderCollapse: 	true,
+            fixedColumn:		false, // fixed first column
+            sortable:			false,
+            autoShow:           true, // hide table after its created
+            footer:             false, // show footer
+			cloneHeadToFoot:	false, // clone head and use as footer
+            autoResize:         false, // resize table if its parent wrapper changes size
+            
+            create:            	null // callback after plugin completes
             
         }
 
@@ -172,8 +173,7 @@
                 $self.addClass('fht-table-init');
                 
                 if ( typeof(settings.altClass) !== 'undefined' ) {
-                	$self.find('tbody tr:odd')
-                		.addClass(settings.altClass);
+                	methods.altRows.apply( self );
                 }
                 
                 if ( settings.fixedColumn == true ) {
@@ -198,6 +198,19 @@
             		self  = this;
             	
             	return self;
+            },
+            
+            /*
+             * Add CSS class to alternating rows
+             */
+            altRows: function( arg1 ) {
+            	var $self		= $(this),
+            		self		= this,
+            		altClass	= ( typeof(arg1) !== 'undefined' ) ? arg1 : settings.altClass;
+            	
+            	$self.closest('.fht-table-wrapper')
+            		.find('tbody tr:odd:not(:hidden)')
+            		.addClass(altClass);
             },
             
             /*
@@ -367,9 +380,15 @@
              * return void
              */
             _fixWidthWithCss: function( $obj, tableProps ) {
-            	$obj.css({
-            		'width': $obj.width() + tableProps.border
-            	});
+            	if ( settings.includePadding ) {
+            		$obj.css({
+            			'width': $obj.width() + tableProps.border
+            		});
+            	} else {
+            		$obj.css({
+            			'width': $obj.parent().width() + tableProps.border
+            		});
+            	}
             },
             
             /*
@@ -440,7 +459,7 @@
 						.find('tr')
 						.append($firstTdFootChild.clone());
 					$tfoot.css({
-						'top': settings.scrollbarOffset + tableProps.border
+						'top': settings.scrollbarOffset
 					});
 				}
 			},

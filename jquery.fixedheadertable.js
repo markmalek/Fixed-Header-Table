@@ -381,12 +381,16 @@
              */
             _fixWidthWithCss: function( $obj, tableProps ) {
             	if ( settings.includePadding ) {
-            	    $obj.css({
-            		'width': $obj.width() + tableProps.border
+            	    $obj.each(function(index) {
+			$(this).css({
+            		    'width': $(this).width() + tableProps.border
+			});
             	    });
             	} else {
-            	    $obj.css({
-            		'width': $obj.parent().width() + tableProps.border
+            	    $obj.each(function(index) {
+			$(this).css({
+            		    'width': $(this).parent().width() + tableProps.border
+			});
             	    });
             	}
             },
@@ -454,6 +458,7 @@
 		
 		// set width of fixed column wrapper
 		$fixedColumn.css({
+		    'height': 0,
 		    'width': fixedColumnWidth
 		});
 		

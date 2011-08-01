@@ -18,54 +18,45 @@
  * all CSS sizing (width,height) is done in pixels (px)
  */
 
-(function($) {
+(function ($) {
 
-    $.fn.fixedHeaderTable = function( method ) {
+    $.fn.fixedHeaderTable = function (method) {
 
         // plugin's default options
         var defaults = {
             
-            width:				'100%',
-            height: 			'100%',
-            themeClass: 		'fht-default',
-            
-            borderCollapse: 	true,
-            fixedColumns:		0, // fixed first columns
-            sortable:			false,
-            autoShow:           true, // hide table after its created
-            footer:             false, // show footer
-            cloneHeadToFoot:	false, // clone head and use as footer
-            autoResize:         false, // resize table if its parent wrapper changes size
-            
-            create:            	null // callback after plugin completes
-            
-        }
+            width:          '100%',
+            height:         '100%',
+            themeClass:     'fht-default',
+            borderCollapse:  true,
+            fixedColumns:    0, // fixed first columns
+            sortable:        false,
+            autoShow:        true, // hide table after its created
+            footer:          false, // show footer
+            cloneHeadToFoot: false, // clone head and use as footer
+            autoResize:      false, // resize table if its parent wrapper changes size
+            create:          null // callback after plugin completes
+        };
 
-        var settings = {}
+        var settings = {};
 
         // public methods
         var methods = {
-
-            init : function(options) {
-
+            init: function (options) {
                 settings = $.extend({}, defaults, options);
 
                 // iterate through all the DOM elements we are attaching the plugin to
-                return this.each(function() {
-
+                return this.each(function () {
                     var $self = $(this), // reference the jQuery version of the current DOM element
                     self = this; // reference to the actual DOM element
                     
                     if ( helpers._isTable($self) ) {
                         methods.setup.apply(this, Array.prototype.slice.call(arguments, 1));
-                        
                         $.isFunction(settings.create) && settings.create.call(this);
                     } else {
-                    	$.error('Invalid table mark-up');
-                    }
-
+			$.error('Invalid table mark-up');
+		    }
                 });
-                
             },
 	    
 	    /*
@@ -452,7 +443,7 @@
 		$firstTdChildren.each(function(index) {
 		    if (index % settings.fixedColumns == 0) {
 			$newRow = $('<tr></tr>').appendTo($tbody.find('tbody'));
-		    
+			
 			if ( settings.altClass && $(this).parent().hasClass(settings.altClass) ) {
 			    $newRow.addClass(settings.altClass);
 			} 
@@ -693,6 +684,6 @@
 
         }
 
-    }
+    };
 
 })(jQuery);

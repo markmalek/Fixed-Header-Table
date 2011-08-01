@@ -379,20 +379,21 @@
             /*
              * return void
              */
-            _fixWidthWithCss: function( $obj, tableProps ) {
+            _fixWidthWithCss: function( $obj, tableProps, width ) {
             	if ( settings.includePadding ) {
             	    $obj.each(function(index) {
 			$(this).css({
-            		    'width': $(this).width() + tableProps.border
+            		    'width': width == undefined ? $(this).width() + tableProps.border : width + tableProps.border
 			});
-            	    });
+            	    }); 
             	} else {
             	    $obj.each(function(index) {
 			$(this).css({
-            		    'width': $(this).parent().width() + tableProps.border
+            		    'width': width == undefined ? $(this).parent().width() + tableProps.border : width + tableProps.border
 			});
             	    });
             	}
+
             },
             
             /*
@@ -424,11 +425,16 @@
 		helpers._fixHeightWithCss( $firstThChildren, tableProps );
 		helpers._fixWidthWithCss( $firstThChildren, tableProps );
 
+		var tdWidths = [];
+		$firstThChildren.each(function(index) {
+		    tdWidths.push($(this).width());
+		});
+
 		firstTdChildrenSelector = 'tbody tr td:not(:nth-child(n+' + (settings.fixedColumns + 1) + '))';
 		$firstTdChildren = $fixedBody.find(firstTdChildrenSelector)
 		    .each( function(index) {
-			helpers._fixHeightWithCss( $(this), tableProps );
-			helpers._fixWidthWithCss( $(this), tableProps );
+			helpers._fixHeightWithCss( $(this), tableProps);
+			helpers._fixWidthWithCss( $(this), tableProps, tdWidths[index % settings.fixedColumns]  );
 		    });
 
 		// clone header

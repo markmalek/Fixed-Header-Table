@@ -21,5 +21,5 @@
 ### Notes:
 
 If you aren't using the minified version, be sure to include
-`lib/jquery.mousewheel.min.js` in your page if you require mousewheel
+`lib/jquery.mousewheel.js` in your page if you require mousewheel
 scrolling via fixed columns.

@@ -11,7 +11,7 @@
 
 * width - Number - Default: 100%
 * height - Number - Default: 100%
-* fixedColumn - Boolean - Default: false
+* fixedColumns - Number - Default: 0
 * footer - Boolean - Default: false
 * cloneHeadToFoot - Boolean - Default: false
 * autoShow - Boolean - Default: true

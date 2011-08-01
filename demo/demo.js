@@ -7,5 +7,5 @@ $(document).ready(function() {
     
     $('.myTable03').fixedHeaderTable({ height: '400', altClass: 'odd', footer: true, fixedColumn: true, themeClass: 'fancyTable' });
     
-    $('.myTable04').fixedHeaderTable({ height: '400', altClass: 'odd', footer: true, cloneHeadToFoot: true, fixedColumn: true, themeClass: 'fancyTable' });
+    $('.myTable04').fixedHeaderTable({ height: '400', altClass: 'odd', footer: true, cloneHeadToFoot: true, fixedColumns: 3, themeClass: 'fancyTable' });
 });

@@ -466,7 +466,20 @@
 		$fixedColumn.css({
 		    'height': 0,
 		    'width': fixedColumnWidth
+		})
+
+
+		// bind mousewheel events
+		var maxTop = $fixedColumn.find('.fht-tbody .fht-table').height() - $fixedColumn.find('.fht-tbody').height();
+		console.log(maxTop);
+		$fixedColumn.find('.fht-table').bind('mousewheel', function(event, delta) {
+		    var top = parseInt($(this).css('marginTop'), 10) + (delta > 0 ? 40 : -40);
+		    if (top > 0) top = 0;
+		    if (top < -maxTop) top = -maxTop;
+		    $(this).css('marginTop', top);
+		    $fixedBody.find('.fht-tbody').scrollTop(-top);
 		});
+
 		
 		// set width of body table wrapper
 		$fixedBody.css({

@@ -352,7 +352,7 @@
             				'margin-left': -this.scrollLeft
             			});
             		
-            		if ( settings.cloneHeadToFoot ) {
+            		if (settings.footer || settings.cloneHeadToFoot ) {
             			$tfoot.find('table')
 	            			.css({
 	            				'margin-left': -this.scrollLeft
@@ -402,7 +402,7 @@
 					$fixedColumn	= $wrapper.find('.fht-fixed-column'),
 					$thead			= $('<div class="fht-thead"><table class="fht-table"><thead><tr></tr></thead></table></div>'),
 					$tbody			= $('<div class="fht-tbody"><table class="fht-table"><tbody></tbody></table></div>'),
-					$tfoot			= $('<div class="fht-tfoot"><table class="fht-table"><thead><tr></tr></thead></table></div>'),
+					$tfoot			= $('<div class="fht-tfoot"><table class="fht-table"><tfoot><tr></tr></tfoot></table></div>'),
 					$firstThChild   = $fixedBody.find('.fht-thead thead tr th:first-child'),
 					$firstTdChildren,
 					fixedColumnWidth = $firstThChild.outerWidth(true) + tableProps.border,
@@ -452,8 +452,13 @@
 				
 				// setup clone footer with fixed column
 				if ( settings.footer == true || settings.cloneHeadToFoot == true ) {
-					var $firstTdFootChild = $fixedBody.find('.fht-tfoot thead tr th:first-child');
-					
+                    var $firstTdFootChild;
+                    if(settings.cloneHeadToFoot){
+                        $firstTdFootChild = $fixedBody.find('.fht-thead thead tr th:first-child');
+                    } else {
+                        $firstTdFootChild = $fixedBody.find('.fht-tfoot tfoot tr td:first-child');
+                    }
+
 					helpers._fixHeightWithCss( $firstTdFootChild, tableProps );
 					$tfoot.appendTo($fixedColumn)
 						.find('tr')

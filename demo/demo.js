@@ -8,4 +8,6 @@ $(document).ready(function() {
     $('.myTable03').fixedHeaderTable({ height: '400', altClass: 'odd', footer: true, fixedColumns: 1, themeClass: 'fancyTable' });
     
     $('.myTable04').fixedHeaderTable({ height: '400', altClass: 'odd', footer: true, cloneHeadToFoot: true, fixedColumns: 3, themeClass: 'fancyTable' });
+    
+    $('.myTable05').fixedHeaderTable({ height: '400', altClass: 'odd', footer: true, fixedColumns: 1, themeClass: 'fancyTable' });
 });

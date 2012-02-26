@@ -84,7 +84,8 @@
                     $fixedHeadRow,
                     $temp,
                     tfootHeight = 0;
-                
+
+                settings.originalTable = $(this).clone();
                 settings.includePadding = helpers._isPaddingIncludedWithWidth();
                 settings.scrollbarOffset = helpers._getScrollbarWidth();
 				settings.themeClassName = settings.themeClass;
@@ -137,6 +138,8 @@
                 	} else {
                 		$divHead = $('<div class="fht-thead"><table class="fht-table"></table></div>').prependTo($wrapper);
                 	}
+
+                    $divHead.find('table.fht-table').addClass(settings.originalTable.attr('class'));
                     
                     $thead.clone().appendTo($divHead.find('table'));
                 } else {
@@ -409,7 +412,11 @@
 					fixedBodyWidth  = $wrapper.width(),
 					fixedBodyHeight = $fixedBody.find('.fht-tbody').height() - settings.scrollbarOffset,
 					$newRow;
-				
+
+                $thead.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+                $tbody.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+                $tfoot.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+
 				// Fix cell heights
 				helpers._fixHeightWithCss( $firstThChild, tableProps );
 				helpers._fixWidthWithCss( $firstThChild, tableProps );
@@ -486,6 +493,8 @@
             		} else {
             			$divFoot = $('<div class="fht-tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
             		}
+
+                    $divFoot.find('table.fht-table').addClass(settings.originalTable.attr('class'));
             	}
 
             	switch (true) {
@@ -592,6 +601,8 @@
             	var $obj 			= $('<table class="fht-table"><tr><td style="padding: 10px; font-size: 10px;">test</td></tr></table>'),
             		defaultHeight,
             		newHeight;
+
+                $obj.addClass(settings.originalTable.attr('class'));
             		
             	$obj.appendTo('body');
             	

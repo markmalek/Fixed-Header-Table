@@ -397,7 +397,7 @@
 		$fixedColumn		= $wrapper.find('.fht-fixed-column'),
 		$thead			= $('<div class="fht-thead"><table class="fht-table"><thead><tr></tr></thead></table></div>'),
 		$tbody			= $('<div class="fht-tbody"><table class="fht-table"><tbody></tbody></table></div>'),
-		$tfoot			= $('<div class="fht-tfoot"><table class="fht-table"><thead><tr></tr></thead></table></div>'),
+		$tfoot			= $('<div class="fht-tfoot"><table class="fht-table"><tfoot><tr></tr></tfoot></table></div>'),
 		$firstThChildren,//	= $fixedBody.find('.fht-thead thead tr > *:first-child'),
 		$firstTdChildren,
 		fixedColumnWidth,//	= $firstThChild.outerWidth(true) + tableProps.border,

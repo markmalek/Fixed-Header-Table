@@ -485,8 +485,11 @@
 		    $tfoot.appendTo($fixedColumn)
 			.find('tr')
 			.append($firstTdFootChild.clone());
+		    // Set (view width) of $tfoot div to width of table (this accounts for footers with a colspan)
+		    footwidth = $tfoot.find('table').innerWidth();
 		    $tfoot.css({
-			'top': settings.scrollbarOffset
+			'top': settings.scrollbarOffset,
+			'width': footwidth,
 		    });
 		}
 	    },

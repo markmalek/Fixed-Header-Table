@@ -50,6 +50,18 @@
 	height: 500px;
 	}
 
+.height250 {
+        height: 250px;
+        overflow-x: auto;
+        overflow-y: auto;
+}
+
+.height400 {
+        height: 400px;
+        overflow-x: auto;
+        overflow-y: auto;
+}
+
 .fancyTable td, .fancyTable th {
 	/* appearance */
 	border: 1px solid #778899;

@@ -398,14 +398,14 @@
 		$thead			= $('<div class="fht-thead"><table class="fht-table"><thead><tr></tr></thead></table></div>'),
 		$tbody			= $('<div class="fht-tbody"><table class="fht-table"><tbody></tbody></table></div>'),
 		$tfoot			= $('<div class="fht-tfoot"><table class="fht-table"><thead><tr></tr></thead></table></div>'),
-		$firstThChildren,//	= $fixedBody.find('.fht-thead thead tr th:first-child'),
+		$firstThChildren,//	= $fixedBody.find('.fht-thead thead tr > *:first-child'),
 		$firstTdChildren,
 		fixedColumnWidth,//	= $firstThChild.outerWidth(true) + tableProps.border,
 		fixedBodyWidth		= $wrapper.width(),
 		fixedBodyHeight		= $fixedBody.find('.fht-tbody').height() - settings.scrollbarOffset,
 		$newRow;
 
-		$firstThChildren = $fixedBody.find('.fht-thead thead tr th:lt(' + settings.fixedColumns + ')');
+		$firstThChildren = $fixedBody.find('.fht-thead thead tr > *:lt(' + settings.fixedColumns + ')');
 		fixedColumnWidth = settings.fixedColumns * tableProps.border;
 		$firstThChildren.each(function(index) {
 		    fixedColumnWidth += $(this).outerWidth(true);
@@ -420,7 +420,7 @@
 		    tdWidths.push($(this).width());
 		});
 
-		firstTdChildrenSelector = 'tbody tr td:not(:nth-child(n+' + (settings.fixedColumns + 1) + '))';
+		firstTdChildrenSelector = 'tbody tr > *:not(:nth-child(n+' + (settings.fixedColumns + 1) + '))';
 		$firstTdChildren = $fixedBody.find(firstTdChildrenSelector)
 		    .each(function(index) {
 			helpers._fixHeightWithCss($(this), tableProps);
@@ -479,7 +479,7 @@
 		
 		// setup clone footer with fixed column
 		if (settings.footer == true || settings.cloneHeadToFoot == true) {
-		    var $firstTdFootChild = $fixedBody.find('.fht-tfoot thead tr th:lt(' + settings.fixedColumns + ')');
+		    var $firstTdFootChild = $fixedBody.find('.fht-tfoot thead tr > *:lt(' + settings.fixedColumns + ')');
 		    
 		    helpers._fixHeightWithCss($firstTdFootChild, tableProps);
 		    $tfoot.appendTo($fixedColumn)
@@ -556,15 +556,15 @@
 		
 		tableProp.border = ($obj.find('th:first-child').outerWidth() - $obj.find('th:first-child').innerWidth()) / borderCollapse;
 		
-                $obj.find('thead tr:first-child th').each(function(index) {
+                $obj.find('thead tr:first-child > *').each(function(index) {
                     tableProp.thead[index] = $(this).width() + tableProp.border;
                 });
                 
-                $obj.find('tfoot tr:first-child td').each(function(index) {
+                $obj.find('tfoot tr:first-child > *').each(function(index) {
                     tableProp.tfoot[index] = $(this).width() + tableProp.border;
                 });
                 
-                $obj.find('tbody tr:first-child td').each(function(index) {
+                $obj.find('tbody tr:first-child > *').each(function(index) {
                     tableProp.tbody[index] = $(this).width() + tableProp.border;
                 });
 
@@ -578,10 +578,10 @@
             _setupClone: function($obj, cellArray) {
                 var $self    = $obj,
                 selector = ($self.find('thead').length) ?
-                    'thead th' : 
+                    'thead tr:first-child > *' : 
                     ($self.find('tfoot').length) ?
-                    'tfoot td' :
-                    'tbody td',
+                    'tfoot tr:first-child > *' :
+                    'tbody tr:first-child > *',
                 $cell;
                 
                 $self.find(selector).each(function(index) {

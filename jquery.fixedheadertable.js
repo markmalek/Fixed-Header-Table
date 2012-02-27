@@ -342,7 +342,7 @@
             		    'margin-left': -this.scrollLeft
             		});
             	    
-            	    if (settings.cloneHeadToFoot) {
+            	    if (settings.footer || settings.cloneHeadToFoot) {
             		$tfoot.find('table')
 	            	    .css({
 	            		'margin-left': -this.scrollLeft
@@ -479,7 +479,7 @@
 		
 		// setup clone footer with fixed column
 		if (settings.footer == true || settings.cloneHeadToFoot == true) {
-		    var $firstTdFootChild = $fixedBody.find('.fht-tfoot thead tr > *:lt(' + settings.fixedColumns + ')');
+		    var $firstTdFootChild = $fixedBody.find('.fht-tfoot tr > *:lt(' + settings.fixedColumns + ')');
 		    
 		    helpers._fixHeightWithCss($firstTdFootChild, tableProps);
 		    $tfoot.appendTo($fixedColumn)

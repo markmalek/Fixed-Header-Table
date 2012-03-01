@@ -104,6 +104,8 @@
 	}
 
 .fancyTable thead tr th,
+.fancyTable thead tr td,
+.fancyTable tfoot tr th, 
 .fancyTable tfoot tr td {
 	/* appearance */
 	background-color: #8ca9cf;

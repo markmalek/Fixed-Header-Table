@@ -30,6 +30,7 @@
             themeClass:     'fht-default',
             borderCollapse:  true,
             fixedColumns:    0, // fixed first columns
+            fixedColumn:     false, // For backward-compatibility
             sortable:        false,
             autoShow:        true, // hide table after its created
             footer:          false, // show footer
@@ -97,6 +98,10 @@
                 }
 
                 $wrapper = $self.closest('.fht-table-wrapper');
+                
+                if(settings.fixedColumn == true && settings.fixedColumns <= 0) {
+                	settings.fixedColumns = 1;
+                }
                 
                 if (settings.fixedColumns > 0 && $wrapper.find('.fht-fixed-column').length == 0) {
                     $self.wrap('<div class="fht-fixed-body"></div>');

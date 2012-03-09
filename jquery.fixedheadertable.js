@@ -77,6 +77,7 @@
                 $temp,
                 tfootHeight = 0;
                 
+                settings.originalTable = $(this).clone();
                 settings.includePadding = helpers._isPaddingIncludedWithWidth();
                 settings.scrollbarOffset = helpers._getScrollbarWidth();
 		settings.themeClassName = settings.themeClass;
@@ -134,6 +135,7 @@
                 	$divHead = $('<div class="fht-thead"><table class="fht-table"></table></div>').prependTo($wrapper);
                     }
                     
+                    $divHead.find('table.fht-table').addClass(settings.originalTable.attr('class'));
                     $thead.clone().appendTo($divHead.find('table'));
                 } else {
                     $divHead = $wrapper.find('div.fht-thead');
@@ -410,6 +412,10 @@
 		fixedBodyHeight		= $fixedBody.find('.fht-tbody').height() - settings.scrollbarOffset,
 		$newRow;
 
+		$thead.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+		$tbody.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+		$tfoot.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+		
 		$firstThChildren = $fixedBody.find('.fht-thead thead tr > *:lt(' + settings.fixedColumns + ')');
 		fixedColumnWidth = settings.fixedColumns * tableProps.border;
 		$firstThChildren.each(function(index) {
@@ -517,6 +523,7 @@
             		$divFoot = $('<div class="fht-tfoot"><table class="fht-table"></table></div>').appendTo($wrapper);
             	    }
             	}
+            	$divFoot.find('table.fht-table').addClass(settings.originalTable.attr('class'));
 
             	switch (true) {
             	case !$tfoot.length && settings.cloneHeadToFoot == true && settings.footer == true:
@@ -623,6 +630,7 @@
             	defaultHeight,
             	newHeight;
             	
+            	$obj.addClass(settings.originalTable.attr('class'));
             	$obj.appendTo('body');
             	
             	defaultHeight = $obj.find('td').height();

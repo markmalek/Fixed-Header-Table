@@ -500,7 +500,7 @@
 		    footwidth = $tfoot.find('table').innerWidth();
 		    $tfoot.css({
 			'top': settings.scrollbarOffset,
-			'width': footwidth,
+			'width': footwidth
 		    });
 		}
 	    },

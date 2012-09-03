@@ -39,7 +39,7 @@
 					.append('<td class="link"><a class="button" href="http://github.com' + aMessages[message].commit.url + '">View Details</a></td>');
 			}
 
-			$('#demo').fixedHeaderTable({ height: '600', altClass: 'odd', footer: true, cloneHeadToFoot: true,  themeClass: 'fancyTable' });
+			$('#demo').fixedHeaderTable({ height: '600', altClass: 'odd', footer: true, themeClass: 'table' });
 			
 			return self;
 		},

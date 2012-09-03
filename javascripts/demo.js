@@ -2,6 +2,7 @@
 
 	$(document).ready(function() {
 		$('#tableBlock').getCommits();
+		console.log($('#tableBlock'));
 	});
 	
 	$.fn.extend({

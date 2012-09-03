@@ -2,7 +2,6 @@
 
 	$(document).ready(function() {
 		$('#tableBlock').getCommits();
-		console.log($('#tableBlock'));
 	});
 	
 	$.fn.extend({
@@ -40,7 +39,7 @@
 					.append('<td class="link"><a class="button" href="http://github.com' + aMessages[message].commit.url + '">View Details</a></td>');
 			}
 
-			$('#tableBlock > table.myTable').fixedHeaderTable({ height: '600', altClass: 'odd', footer: true, cloneHeadToFoot: true,  themeClass: 'fancyTable' });
+			$('#demo').fixedHeaderTable({ height: '600', altClass: 'odd', footer: true, cloneHeadToFoot: true,  themeClass: 'fancyTable' });
 			
 			return self;
 		},

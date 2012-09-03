@@ -47,7 +47,7 @@
 		getCommits: function() {
 			var $self     = $(this),
 				  self	    = this,
-				  url		    = 'https://api.github.com/repos/golovko/Fixed-Header-Table/commits?callback=?',
+				  url		    = 'https://api.github.com/repos/markmalek/Fixed-Header-Table/commits?callback=?',
 				  aMessages	= new Array();
 
 			if ( $.isEmptyObject($self.data()) ) {

@@ -227,3 +227,9 @@ table {
 .table-striped tbody tr:nth-child(odd) th {
   background-color: #f9f9f9;
 }
+
+.table-bordered tfoot th,
+.table-bordered tfoot td {
+  border-top: none;
+  border-bottom: none;
+}

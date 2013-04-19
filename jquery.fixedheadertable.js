@@ -657,7 +657,7 @@
             	var scrollbarWidth = 0;
             	
             	if (!scrollbarWidth) {
-		    if ($.browser.msie) {
+		    if (/msie/.test(navigator.userAgent.toLowerCase())) {
 			var $textarea1 = $('<textarea cols="10" rows="2"></textarea>')
 			    .css({ position: 'absolute', top: -1000, left: -1000 }).appendTo('body'),
 			$textarea2 = $('<textarea cols="10" rows="2" style="overflow: hidden;"></textarea>')

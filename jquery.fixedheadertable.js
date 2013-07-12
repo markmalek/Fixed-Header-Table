@@ -611,7 +611,7 @@
                      * to align with the scrollbar of the body 
                      */
                     if (!$(this).closest('.fht-tbody').length && $(this).is(':last-child') && !$(this).closest('.fht-fixed-column').length) {
-                    	var padding = (($(this).innerWidth() - $(this).width()) / 2) + settings.scrollbarOffset;
+                    	var padding = Math.max((($(this).innerWidth() - $(this).width()) / 2), settings.scrollbarOffset);
                     	$(this).css({
                     	    'padding-right': padding + 'px'
                     	});

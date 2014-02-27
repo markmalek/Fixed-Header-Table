@@ -131,7 +131,10 @@
             $divHead = $('<div class="fht-thead"><table class="fht-table"></table></div>').prependTo($wrapper);
           }
 
-          $divHead.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+          $divHead.find('table.fht-table')
+            .addClass(settings.originalTable.attr('class'))
+            .attr('style', settings.originalTable.attr('style'));
+
           $thead.clone().appendTo($divHead.find('table'));
         } else {
           $divHead = $wrapper.find('div.fht-thead');

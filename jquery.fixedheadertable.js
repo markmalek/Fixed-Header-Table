@@ -131,7 +131,10 @@
             $divHead = $('<div class="fht-thead"><table class="fht-table"></table></div>').prependTo($wrapper);
           }
 
-          $divHead.find('table.fht-table').addClass(settings.originalTable.attr('class'));
+          $divHead.find('table.fht-table')
+            .addClass(settings.originalTable.attr('class'))
+            .attr('style', settings.originalTable.attr('style'));
+
           $thead.clone().appendTo($divHead.find('table'));
         } else {
           $divHead = $wrapper.find('div.fht-thead');
@@ -609,7 +612,7 @@
           if (!$(this).closest('.fht-tbody').length && $(this).is(':last-child') && !$(this).closest('.fht-fixed-column').length) {
             var padding = Math.max((($(this).innerWidth() - $(this).width()) / 2), settings.scrollbarOffset);
             $(this).css({
-                'padding-right': padding + 'px'
+              'padding-right': parseInt($(this).css('padding-right')) + padding + 'px'
             });
           }
         });

@@ -1,0 +1,19 @@
+{
+  "name": "fixed-header-table",
+  "version": "1.3.0",
+  "description": "jQuery plugin for tables with fixed headers",
+  "main": "jquery.fixedheadertable.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markmalek/Fixed-Header-Table"
+  },
+  "author": "Mark Malek <mark@mmalek.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markmalek/Fixed-Header-Table/issues"
+  },
+  "homepage": "https://github.com/markmalek/Fixed-Header-Table"
+}

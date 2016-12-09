@@ -78,7 +78,7 @@
         settings.scrollbarOffset = helpers._getScrollbarWidth();
         settings.themeClassName = settings.themeClass;
 
-        if (settings.width.search('%') > -1) {
+        if (settings.width.search && settings.width.search('%') > -1) {
             widthMinusScrollbar = $self.parent().width() - settings.scrollbarOffset;
         } else {
             widthMinusScrollbar = settings.width - settings.scrollbarOffset;
